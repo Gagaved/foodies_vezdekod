@@ -1,9 +1,7 @@
 package com.example.foodiesmailru.productDetails
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.foodiesmailru.MainActivity
-import com.example.foodiesmailru.R
 import com.example.foodiesmailru.databinding.FragmentProductsDetailsBinding
-import com.example.foodiesmailru.dataclasses.Product
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding: FragmentProductsDetailsBinding
@@ -35,12 +31,6 @@ class ProductDetailsFragment : Fragment() {
         super.onResume()
         binding.root.requestLayout()
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-//      product = (activity as MainActivity).getSelectedProduct()
-    }
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

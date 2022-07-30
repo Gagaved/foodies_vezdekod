@@ -18,26 +18,12 @@ import com.example.foodiesmailru.MainActivity
 
 class MenuFragment : Fragment() {
     private var current_category: Int = -1;
-    private var product_list_index: Int = -1;
     private val model: MainActivity.FolderViewModel by activityViewModels()
-//    private var totalPrice: Int = 0;
-//    private lateinit var categories: MutableList<ProductCategory>
-//    private lateinit var products: MutableList<Product>
-//    private lateinit var mapOfProducts: MutableMap<Int,MutableList<Product>>
     private lateinit var adapterForCategories: CategoriesRVAdapter
     private lateinit var adapterForProducts: ProductsRVAdapter
     @SuppressLint("SetTextI18n")
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        categories = (activity as MainActivity).getCategories()
-//        current_category = categories[0].id
-//        mapOfProducts = (activity as MainActivity).getMapOfProducts()
-//        totalPrice = ((activity as MainActivity).getTotalPrice())
-//        mapOfProducts = categories.associateBy ({ it.id },{ mutableListOf<Product>()}).toMutableMap()
-//        for(item in products){
-//            //if(current_category == -1 ) current_category = item.category_id
-//            mapOfProducts[item.category_id]?.add(item)
-//        }
         adapterForCategories = CategoriesRVAdapter(model)
         adapterForProducts = ProductsRVAdapter(model)
     }
@@ -53,12 +39,10 @@ class MenuFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
-        //binding.button.text = "В корзину за " + (model.totalPrice.value!!/10).toString()+" ₽"
-    }
+        }
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("TAG","proverochka")
         val recyclerViewForCategory = binding.categoryRV
         recyclerViewForCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerViewForCategory.adapter = adapterForCategories
@@ -87,18 +71,10 @@ class MenuFragment : Fragment() {
         model.totalPrice.observe(viewLifecycleOwner){price ->
             binding.button.text = (price/10).toString()+" ₽"
         }
-
-        //OTLADKA
         binding.button.setOnClickListener {
             model.updateBasket()
             findNavController().navigate(R.id.action_MenuFragment_to_basketFragment)
             }
 
     }
-
-        //OTLADKA
-
-//    public fun getSelectedProduct(): Product{
-//        return mapOfProducts[current_category]!![product_list_index]
-//    }
 }

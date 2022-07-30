@@ -14,7 +14,6 @@ import com.example.foodiesmailru.dataclasses.ProductCategory
 
 class CategoriesRVAdapter(private val model: MainActivity.FolderViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var itemClickListener: (Int) -> Unit = {}
-    var idOfSelectedCategory = model.categories.value!![0].id
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_category_item, parent, false)
         return ProductCategoryViewHolder(view)

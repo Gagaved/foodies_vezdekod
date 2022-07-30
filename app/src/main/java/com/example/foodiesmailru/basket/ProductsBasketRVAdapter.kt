@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodiesmailru.MainActivity
 import com.example.foodiesmailru.R
 import com.example.foodiesmailru.dataclasses.Product
-import com.example.foodiesmailru.dataclasses.ProductCategory
 import com.google.android.material.button.MaterialButton
-import java.util.*
 
 class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var itemClickListener: (Product) -> Unit = {}
@@ -77,11 +74,9 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel): 
                 }
                 productCountView.text = product.count.toString()
             }
-//            OrderButton.setOnClickListener {
-//            }
+
             itemView.setOnClickListener {
-//                itemClickListener.invoke(product)
-//                notifyDataSetChanged()
+                //TODO(Сделать навигацию из BasketFragment в ProductDetailsFragment  продукца)
             }
         }
     }

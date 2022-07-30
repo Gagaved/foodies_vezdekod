@@ -1,30 +1,13 @@
 package com.example.foodiesmailru
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.foodiesmailru.R
-import com.example.foodiesmailru.databinding.ActivityMainBinding
 import com.example.foodiesmailru.dataclasses.Product
 import com.example.foodiesmailru.dataclasses.ProductCategory
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
     class FolderViewModel : ViewModel() {
@@ -36,14 +19,15 @@ class MainActivity : AppCompatActivity() {
         var products = MutableLiveData<MutableList<Product>>()
         var mapOfProducts = MutableLiveData<MutableMap<Int,MutableList<Product>>>()
         fun updateBasket() {
-            basketOfProducts.value = mutableListOf<Product>()
+            val newValue = mutableListOf<Product>()
             for(category in categories.value!!){
                 for (product in mapOfProducts.value!![category.id]!!){
                     if(product.count>0){
-                        basketOfProducts.value!!.add(product)
+                        newValue.add(product)
                     }
                 }
             }
+            basketOfProducts.value = newValue
         }
         fun notifyObserverOfSelectedProduct(){
             selectedProduct.value = selectedProduct.value
@@ -84,39 +68,4 @@ class MainActivity : AppCompatActivity() {
     private fun setSelectedCategory(){
         model.selectedCategoryId.value = model.categories.value!![0].id
     }
-//    public fun getCategories(): MutableList<ProductCategory>{
-//        return categories
-//    }
-//    public fun getMapOfProducts(): MutableMap<Int,MutableList<Product>>{
-//        return mapOfProducts
-//    }
-//    public fun setMapOfProducts(map: MutableMap<Int,MutableList<Product>>){
-//        mapOfProducts = map
-//    }
-//    public fun setSelectedProduct(product: Product){
-//        selectedProduct = product
-//    }
-//    public fun getSelectedProduct():Product{
-//        return selectedProduct
-//    }
-
-    fun fillBasketOfProductList(){
-        for(category in model.categories.value!!){
-            for (product in model.mapOfProducts.value!![category.id]!!){
-                if(product.count>0){
-                    model.basketOfProducts.value!!.add(product)
-                }
-            }
-        }
-    }
-//    public fun getBasketOfProducts(): MutableList<Product>{
-//        return basketOfProducts
-//    }
-//    public fun getTotalPrice(): Int{
-//        var totalPrice: Int = 0
-//        for(product in basketOfProducts){
-//            totalPrice+=product.price_current
-//        }
-//        return totalPrice
-//    }
 }
