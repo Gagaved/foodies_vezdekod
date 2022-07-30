@@ -1,31 +1,27 @@
-package com.example.foodiesmailru.Menu
+package com.example.foodiesmailru.menu
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodiesmailru.MainActivity
 import com.example.foodiesmailru.R
 import com.example.foodiesmailru.dataclasses.Product
 import com.google.android.material.button.MaterialButton
-import org.w3c.dom.Text
-import java.util.*
-import kotlin.math.min
 
-class ProductsRVAdapter(private val products: MutableList<Product>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var itemClickListener: (Int) -> Unit = {}
+class ProductsRVAdapter(private val model: MainActivity.FolderViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var itemClickListener: (Product) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
         return ProductCategoryViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ProductCategoryViewHolder).bind(products[position])
+        (holder as ProductCategoryViewHolder).bind(model.mapOfProducts.value!![model.selectedCategoryId.value]!![position])
     }
     inner class ProductCategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val currentPriceView = itemView.findViewById<TextView>(R.id.current_price)
@@ -47,14 +43,14 @@ class ProductsRVAdapter(private val products: MutableList<Product>): RecyclerVie
             weightView.text = product.measure.toString()+product.measure_unit
             if(product.measure==0){weightView.visibility =View.INVISIBLE}
             productCountView.text = product.count.toString()
-            currentPriceView.text = (product.price_current/10).toString()+'₽'
+            currentPriceView.text = (product.price_current/10).toString()+ " ₽"
             if(product.price_old == null){
-                currentPriceView.text = (product.price_current/10).toString()+'₽'
-                leftCurrentPriceView.text = (product.price_current/10).toString()+'₽'
+                currentPriceView.text = (product.price_current/10).toString()+ " ₽"
+                leftCurrentPriceView.text = (product.price_current/10).toString()+" ₽"
                 oldPriceView.text = ""
             }else{
-                currentPriceView.text = (product.price_current/10).toString()+'₽'
-                leftCurrentPriceView.text = (product.price_current/10).toString()+'₽'
+                currentPriceView.text = (product.price_current/10).toString()+" ₽"
+                leftCurrentPriceView.text = (product.price_current/10).toString()+" ₽"
                 oldPriceView.apply {
                     paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     text = (product.price_old!!/10).toString()+'₽'
@@ -87,11 +83,13 @@ class ProductsRVAdapter(private val products: MutableList<Product>): RecyclerVie
             }
             productCountView.text = product.count.toString()
             plusButton.setOnClickListener {
+                model.totalPrice.value = model.totalPrice.value?.plus(product.price_current)
                 if(product.count<=0){
                     product.count = 1
                 }else{
                     product.count+=1
                 }
+
                 if (product.count<=0) {
                     if(product.price_old == null){
                         currentPriceView.visibility = View.VISIBLE
@@ -118,11 +116,13 @@ class ProductsRVAdapter(private val products: MutableList<Product>): RecyclerVie
                     firstButton.visibility = View.INVISIBLE
                 }
                 productCountView.text = product.count.toString()
+
             }
             minusButton.setOnClickListener {
                     if(product.count<=0){
                         product.count = 0
                     }else{
+                        model.totalPrice.value = model.totalPrice.value?.minus(product.price_current)
                         product.count-=1
                     }
                 if (product.count<=0) {
@@ -153,6 +153,8 @@ class ProductsRVAdapter(private val products: MutableList<Product>): RecyclerVie
                 productCountView.text = product.count.toString()
                 }
             firstButton.setOnClickListener {
+                model.totalPrice.value = model.totalPrice.value?.plus(product.price_current)
+                model.basketOfProducts.value!!.add(product)
                 if(product.count<=0){
                     product.count = 1
                 }else{
@@ -186,13 +188,15 @@ class ProductsRVAdapter(private val products: MutableList<Product>): RecyclerVie
                 productCountView.text = product.count.toString()
             }
             itemView.setOnClickListener {
+                itemClickListener.invoke(product)
+                notifyDataSetChanged()
             }
         }
     }
-    fun setItemClickListener(listener: (Int) -> Unit) {
+    fun setItemClickListener(listener: (Product) -> Unit) {
         itemClickListener = listener
     }
     override fun getItemCount(): Int {
-        return products.size
+        return model.mapOfProducts.value!![model.selectedCategoryId.value]!!.size
     }
 }

@@ -1,28 +1,27 @@
-package com.example.foodiesmailru.Menu
+package com.example.foodiesmailru.menu
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodiesmailru.MainActivity
 import com.example.foodiesmailru.R
 import com.example.foodiesmailru.dataclasses.ProductCategory
-import java.util.*
 
-class CategoriesRVAdapter(private val categories: List<ProductCategory>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CategoriesRVAdapter(private val model: MainActivity.FolderViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var itemClickListener: (Int) -> Unit = {}
-    var idOfSelectedCategory = categories[0].id;
+    var idOfSelectedCategory = model.categories.value!![0].id
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_category_item, parent, false)
         return ProductCategoryViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ProductCategoryViewHolder).bind(categories[position])
+        (holder as ProductCategoryViewHolder).bind(model.categories.value!![position])
     }
     inner class ProductCategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val productCategoryTextView = itemView.findViewById<TextView>(R.id.product_category)
@@ -31,7 +30,7 @@ class CategoriesRVAdapter(private val categories: List<ProductCategory>): Recycl
         fun bind(category: ProductCategory) {
             productCategoryTextView.text = category.name
 
-            itemView.isSelected = category.id == idOfSelectedCategory
+            itemView.isSelected = category.id == model.selectedCategoryId.value
             if (itemView.isSelected) {
                 productCategoryCardView.setCardBackgroundColor(Color.parseColor("#F15412"))
                 productCategoryTextView.setTextColor(Color.parseColor("#FFFFFFFF"))
@@ -40,7 +39,7 @@ class CategoriesRVAdapter(private val categories: List<ProductCategory>): Recycl
                 productCategoryTextView.setTextColor(Color.parseColor("#FF000000"))
             }
             itemView.setOnClickListener {
-                idOfSelectedCategory = category.id
+                model.selectedCategoryId.value = category.id
                 itemClickListener.invoke(category.id)
                 notifyDataSetChanged()
             }
@@ -50,6 +49,6 @@ class CategoriesRVAdapter(private val categories: List<ProductCategory>): Recycl
         itemClickListener = listener
     }
     override fun getItemCount(): Int {
-        return categories.size
+        return model.categories.value!!.size
     }
 }

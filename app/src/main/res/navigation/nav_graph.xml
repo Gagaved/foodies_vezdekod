@@ -7,8 +7,21 @@
 
     <fragment
         android:id="@+id/MenuFragment"
-        android:name="com.example.foodiesmailru.Menu.MenuFragment"
-        android:label="@string/first_fragment_label"
+        android:name="com.example.foodiesmailru.menu.MenuFragment"
         tools:layout="@layout/menu_fragment">
+        <action
+            android:id="@+id/action_MenuFragment_to_ProductDetailsFragment"
+            app:destination="@id/ProductDetailsFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_basketFragment"
+            app:destination="@id/basketFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ProductDetailsFragment"
+        android:name="com.example.foodiesmailru.productDetails.ProductDetailsFragment"
+        android:label="ProductDetailsFragment" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.example.foodiesmailru.menu.BasketFragment"
+        android:label="BasketFragment" />
 </navigation>

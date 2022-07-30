@@ -10,6 +10,7 @@ data class  Product(
     var measure: Int,
     var measure_unit: String,
     var energy_per_100_grams: Float,
+    var fats_per_100_grams: Float,
     var proteins_per_100_grams: Float,
     var carbohydrates_per_100_grams: Float,
     var tag_ids: List<Int>,

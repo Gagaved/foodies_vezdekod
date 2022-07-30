@@ -1,4 +1,4 @@
-package com.example.foodiesmailru.SplashScreen
+package com.example.foodiesmailru.splashScreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

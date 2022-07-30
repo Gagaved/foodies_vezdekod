@@ -14,7 +14,7 @@
         android:theme="@style/Theme.FoodiesMailru"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreen.SplashScreenActivity"
+            android:name=".splashScreen.SplashScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
