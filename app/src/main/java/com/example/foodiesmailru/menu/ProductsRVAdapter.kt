@@ -89,7 +89,7 @@ class ProductsRVAdapter(private val model: MainActivity.FolderViewModel): Recycl
                 }else{
                     product.count+=1
                 }
-
+                model.updateBasket()
                 if (product.count<=0) {
                     if(product.price_old == null){
                         currentPriceView.visibility = View.VISIBLE
@@ -124,6 +124,7 @@ class ProductsRVAdapter(private val model: MainActivity.FolderViewModel): Recycl
                     }else{
                         model.totalPrice.value = model.totalPrice.value?.minus(product.price_current)
                         product.count-=1
+                        model.updateBasket()
                     }
                 if (product.count<=0) {
                     if(product.price_old == null){
@@ -154,12 +155,13 @@ class ProductsRVAdapter(private val model: MainActivity.FolderViewModel): Recycl
                 }
             firstButton.setOnClickListener {
                 model.totalPrice.value = model.totalPrice.value?.plus(product.price_current)
-                model.basketOfProducts.value!!.add(product)
+                model.updateBasket()
                 if(product.count<=0){
                     product.count = 1
                 }else{
                     product.count+=1
                 }
+                model.updateBasket()
                 if (product.count<=0) {
                     if(product.price_old == null){
                         currentPriceView.visibility = View.VISIBLE

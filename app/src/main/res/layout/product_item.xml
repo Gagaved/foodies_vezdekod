@@ -12,7 +12,7 @@
     android:backgroundTint="@color/gray"
     android:shadowColor="@color/black"
     android:shadowDx="30"
-    android:shadowDy="60"
+    android:shadowDy="-60"
     android:shadowRadius="1000000000000"
     app:cardElevation="3dp"
     card_view:cardUseCompatPadding="true">

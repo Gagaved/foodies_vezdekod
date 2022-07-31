@@ -71,10 +71,26 @@ class MenuFragment : Fragment() {
         model.totalPrice.observe(viewLifecycleOwner){price ->
             binding.button.text = (price/10).toString()+" ₽"
         }
+        model.basketOfProducts.observe(viewLifecycleOwner){basket ->
+            if(basket.size==0){
+                binding.basketCounterIcon.visibility = View.INVISIBLE
+                binding.basketCounter.visibility = View.INVISIBLE
+            }else{
+                binding.basketCounterIcon.visibility = View.VISIBLE
+                binding.basketCounter.visibility = View.VISIBLE
+                binding.basketCounter.text = basket.size.toString()
+            }
+        }
         binding.button.setOnClickListener {
             model.updateBasket()
             findNavController().navigate(R.id.action_MenuFragment_to_basketFragment)
             }
-
+        binding.mainToolbar.setOnMenuItemClickListener(){
+            if (it.itemId == R.id.basket_menu_button){
+                model.updateBasket()
+                findNavController().navigate(R.id.action_MenuFragment_to_basketFragment)
+            }
+            true
+        }
     }
 }
