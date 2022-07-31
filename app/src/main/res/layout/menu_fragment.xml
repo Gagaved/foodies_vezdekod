@@ -43,16 +43,22 @@
             android:id="@+id/products_RV"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/bottom_panel"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_RV" />
             <FrameLayout
+                android:id="@+id/bottom_panel_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
+                android:visibility="invisible"
                 android:background="@drawable/drop_shadow_to_top"
                 app:layout_constraintBottom_toTopOf="@id/bottom_panel"></FrameLayout>
             <FrameLayout
+                android:id="@+id/top_panel_shadow"
             android:layout_width="match_parent"
+                android:visibility="visible"
             android:layout_height="8dp"
             android:background="@drawable/drop_shadow_to_bot"
             app:layout_constraintTop_toBottomOf="@id/category_RV"></FrameLayout>
@@ -80,10 +86,12 @@
             </TextView>
         </androidx.cardview.widget.CardView>
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="invisible"
                 android:id="@+id/bottom_panel"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
+                android:paddingTop="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:ignore="MissingConstraints">
 
@@ -92,8 +100,7 @@
                     android:layout_width="300dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="0dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="432424"
+                    android:layout_marginBottom="0dp"
                     android:textSize="20sp"
                     app:icon="@drawable/ic_basket"
                     app:iconGravity="textStart"

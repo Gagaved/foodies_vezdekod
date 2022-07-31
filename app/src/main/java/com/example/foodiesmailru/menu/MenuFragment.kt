@@ -75,9 +75,13 @@ class MenuFragment : Fragment() {
             if(basket.size==0){
                 binding.basketCounterIcon.visibility = View.INVISIBLE
                 binding.basketCounter.visibility = View.INVISIBLE
+                binding.bottomPanel.visibility = View.INVISIBLE
+                binding.bottomPanelShadow.visibility = View.INVISIBLE
             }else{
                 binding.basketCounterIcon.visibility = View.VISIBLE
                 binding.basketCounter.visibility = View.VISIBLE
+                binding.bottomPanel.visibility= View.VISIBLE
+                binding.bottomPanelShadow.visibility = View.VISIBLE//TODO(Объеденить с верхней строкой)
                 binding.basketCounter.text = basket.size.toString()
             }
         }

@@ -68,7 +68,7 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel): 
                     product.count-=1
                 }
                 if (product.count<=0) {
-                    model.basketOfProducts.value!!.remove(product)
+                    model.updateBasket()
                 } else {
                 }
                 productCountView.text = product.count.toString()

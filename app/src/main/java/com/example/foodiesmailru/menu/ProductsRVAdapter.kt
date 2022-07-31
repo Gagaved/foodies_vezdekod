@@ -145,7 +145,6 @@ class ProductsRVAdapter(private val model: MainActivity.FolderViewModel): Recycl
                     currentPriceView.visibility = View.INVISIBLE
                     leftCurrentPriceView.visibility=View.INVISIBLE
                     oldPriceView.visibility=View.INVISIBLE
-
                     plusButton.visibility = View.VISIBLE
                     minusButton.visibility= View.VISIBLE
                     productCountView.visibility = View.VISIBLE
