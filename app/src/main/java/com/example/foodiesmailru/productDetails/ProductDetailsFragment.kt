@@ -12,21 +12,18 @@ import com.example.foodiesmailru.MainActivity
 import com.example.foodiesmailru.databinding.FragmentProductsDetailsBinding
 
 class ProductDetailsFragment : Fragment() {
-    private lateinit var binding: FragmentProductsDetailsBinding
-    private val model: MainActivity.FolderViewModel by activityViewModels()
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private var _binding: FragmentProductsDetailsBinding? = null
+    private val binding get() = _binding!!
 
-        binding = FragmentProductsDetailsBinding.inflate(inflater, container, false)
+    private val model: MainActivity.FolderViewModel by activityViewModels()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProductsDetailsBinding.inflate(inflater, container, false)
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
         return binding.root
     }
-
     override fun onResume() {
         super.onResume()
         binding.root.requestLayout()
@@ -90,5 +87,10 @@ class ProductDetailsFragment : Fragment() {
             }
             binding.count.text ="В корзине " + model.selectedProduct.value!!.count
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

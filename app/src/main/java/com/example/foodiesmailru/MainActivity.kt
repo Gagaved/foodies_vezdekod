@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     class FolderViewModel : ViewModel() {
         var totalPrice = MutableLiveData<Int>(0)
         var basketOfProducts = MutableLiveData<MutableList<Product>>(mutableListOf<Product>())
-        var selectedProduct = MutableLiveData<Product>() //продукт который выбрал юзер в меню
+        var selectedProduct = MutableLiveData<Product>()
         var selectedCategoryId=MutableLiveData<Int>()
         var categories = MutableLiveData<MutableList<ProductCategory>>()
         var products = MutableLiveData<MutableList<Product>>()
@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
         return String(buffer, charset("UTF-8"))
     }
     private fun loadCategories(): MutableList<ProductCategory> {
-        var json = loadJson("categories.json")
+        val json = loadJson("categories.json")
         val gson = Gson()
         return gson.fromJson(json, Array<ProductCategory>::class.java).toList().toMutableList()
     }
     private fun loadProducts(): MutableList<Product> {
-        var json = loadJson("products.json")
+        val json = loadJson("products.json")
         val gson = Gson()
         return gson.fromJson(json, Array<Product>::class.java).toList().toMutableList()
     }
