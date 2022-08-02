@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/MenuFragment"
         android:name="com.example.foodiesmailru.menu.MenuFragment"
-        tools:layout="@layout/menu_fragment">
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_MenuFragment_to_ProductDetailsFragment"
             app:destination="@id/ProductDetailsFragment" />
@@ -22,6 +22,10 @@
         android:label="ProductDetailsFragment" />
     <fragment
         android:id="@+id/basketFragment"
-        android:name="com.example.foodiesmailru.menu.BasketFragment"
-        android:label="BasketFragment" />
+        android:name="com.example.foodiesmailru.basket.BasketFragment"
+        android:label="BasketFragment">
+        <action
+            android:id="@+id/action_basketFragment_to_ProductDetailsFragment"
+            app:destination="@id/ProductDetailsFragment" />
+    </fragment>
 </navigation>

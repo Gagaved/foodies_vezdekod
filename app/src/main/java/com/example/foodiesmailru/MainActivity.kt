@@ -3,10 +3,12 @@ package com.example.foodiesmailru
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodiesmailru.dataclasses.Product
 import com.example.foodiesmailru.dataclasses.ProductCategory
+import com.example.foodiesmailru.dataclasses.ProductTag
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         var categories = MutableLiveData<MutableList<ProductCategory>>()
         var products = MutableLiveData<MutableList<Product>>()
         var mapOfProducts = MutableLiveData<MutableMap<Int,MutableList<Product>>>()
+        var tags = MutableLiveData<List<ProductTag>>()
         fun updateBasket() {
             val newValue = mutableListOf<Product>()
             for(category in categories.value!!){
@@ -64,6 +67,11 @@ class MainActivity : AppCompatActivity() {
         val json = loadJson("products.json")
         val gson = Gson()
         return gson.fromJson(json, Array<Product>::class.java).toList().toMutableList()
+    }
+    private  fun loadTags(): MutableList<ProductTag>{
+        val json = loadJson("tags.json")
+        val gson = Gson()
+        return gson.fromJson(json, Array<ProductTag>::class.java).toList().toMutableList()
     }
     private fun setSelectedCategory(){
         model.selectedCategoryId.value = model.categories.value!![0].id

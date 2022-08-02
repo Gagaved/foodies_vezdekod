@@ -1,8 +1,7 @@
-package com.example.foodiesmailru.menu
+package com.example.foodiesmailru.basket
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel) :
     private var itemClickListener: (Product) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.product_basket_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_product_basket, parent, false)
         return ProductBasketViewHolder(view)
     }
 
@@ -33,20 +32,19 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel) :
         private val productCountView = itemView.findViewById<TextView>(R.id.count)
         private val plusButton = itemView.findViewById<MaterialButton>(R.id.plus_button)
         private val minusButton = itemView.findViewById<MaterialButton>(R.id.minus_button)
-        private val OrderButton = itemView.findViewById<MaterialButton>(R.id.button)
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
 
         fun bind(product: Product) {
             productNameView.text = product.name
             productCountView.text = product.count.toString()
-            currentPriceView.text = (product.price_current / 10).toString() + " ₽"
+            currentPriceView.text = (product.price_current / 10).toString() + itemView.context.getString(R.string.currency_symbol)
             if (product.price_old == null) {
                 oldPriceView.visibility = View.INVISIBLE
             } else {
                 oldPriceView.apply {
                     paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    text = (product.price_old!! / 10).toString() + " ₽"
+                    text = (product.price_old!! / 10).toString() + itemView.context.getString(R.string.currency_symbol)
                 }
 
             }
@@ -60,8 +58,6 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel) :
                 productCountView.text = product.count.toString()
             }
             minusButton.setOnClickListener {
-
-                Log.d("tag", "minus_botton")
                 if (product.count <= 0) {
                     product.count = 0
                 } else {
@@ -72,11 +68,11 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel) :
                     model.updateBasket()
                 }
                 productCountView.text = product.count.toString()
-                notifyDataSetChanged()
+                notifyDataSetChanged()//TODO(убрать эту штуку)
             }
 
             itemView.setOnClickListener {
-                //TODO(Сделать навигацию из BasketFragment в ProductDetailsFragment  продукта)
+                itemClickListener.invoke(product)
             }
         }
     }
