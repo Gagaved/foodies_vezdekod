@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodiesmailru.MainActivity
+import com.example.foodiesmailru.R
 import com.example.foodiesmailru.databinding.FragmentSearchBinding
 import com.example.foodiesmailru.dataclasses.Product
 import com.example.foodiesmailru.menu.ProductsRVAdapter
@@ -75,10 +76,26 @@ class SearchFragment: Fragment() {
                       searchResultList.add(product)
                     }
                 }
+                if(searchResultList.size!=0){
+                    binding.textBackground.visibility = View.INVISIBLE
+                }else{
+                    binding.textBackground.text = getString(R.string.search_background_alert)
+                }
                 recyclerView.adapter!!.notifyDataSetChanged()
                 binding.searchBar.clearFocus()
                 return true
             }
         })
+        adapter.setItemClickListener {
+            model.selectedProduct.value = it
+            findNavController().navigate(R.id.action_searchFragment_to_ProductDetailsFragment)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(searchResultList.size!=0) {
+            binding.textBackground.visibility = View.INVISIBLE
+        }
     }
 }

@@ -34,5 +34,9 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.foodiesmailru.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_ProductDetailsFragment"
+            app:destination="@id/ProductDetailsFragment" />
+    </fragment>
 </navigation>

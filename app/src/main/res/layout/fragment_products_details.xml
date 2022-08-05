@@ -185,10 +185,11 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@drawable/drop_shadow_to_top"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/bottom_panel" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="visible"
         android:id="@+id/bottom_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -210,7 +211,7 @@
             android:insetBottom="0dp"
             android:paddingStart="24dp"
             android:theme="@style/buttonView"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:backgroundTint="@color/gray"
             app:cornerRadius="5dp"
             app:icon="@drawable/ic_plus"
@@ -235,7 +236,7 @@
             android:insetBottom="0dp"
             android:paddingStart="24dp"
             android:theme="@style/buttonView"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:backgroundTint="@color/gray"
             app:cornerRadius="5dp"
             app:icon="@drawable/ic_minus"
@@ -256,7 +257,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="25sp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@id/plus_button"
             app:layout_constraintStart_toEndOf="@id/minus_button"
             app:layout_constraintTop_toTopOf="parent" />
@@ -273,7 +274,7 @@
             android:text=""
             android:textAllCaps="false"
             android:textSize="19sp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
