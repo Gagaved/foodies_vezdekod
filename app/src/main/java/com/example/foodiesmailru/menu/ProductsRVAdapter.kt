@@ -1,4 +1,5 @@
 package com.example.foodiesmailru.menu
+
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,8 @@ import com.google.android.material.button.MaterialButton
 
 class ProductsRVAdapter(
     private val model: MainActivity.FolderViewModel,
-    private val categoryId: Int
+    private val categoryId: Int,
+    private val concretelyProductList: MutableList<Product> = mutableListOf<Product>()
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var itemClickListener: (Product) -> Unit = {}
@@ -23,7 +25,11 @@ class ProductsRVAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ProductCategoryViewHolder).bind(model.mapOfProducts.value!![categoryId]!![position])
+        if (categoryId == -1) {
+            (holder as ProductCategoryViewHolder).bind(concretelyProductList[position])
+        } else {
+            (holder as ProductCategoryViewHolder).bind(model.mapOfProducts.value!![categoryId]!![position])
+        }
     }
 
     inner class ProductCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -55,22 +61,26 @@ class ProductsRVAdapter(
             }
 
             productCountView.text = product.count.toString()
-            currentPriceView.text = (product.price_current / 10).toString().plus(itemView.context.getString(R.string.currency_symbol))
-            currentPriceView.text = (product.price_current / 10).toString().plus(itemView.context.getString(R.string.currency_symbol))
-            leftCurrentPriceView.text = (product.price_current / 10).toString().plus(itemView.context.getString(R.string.currency_symbol))
+            currentPriceView.text = (product.price_current / 10).toString()
+                .plus(itemView.context.getString(R.string.currency_symbol))
+            currentPriceView.text = (product.price_current / 10).toString()
+                .plus(itemView.context.getString(R.string.currency_symbol))
+            leftCurrentPriceView.text = (product.price_current / 10).toString()
+                .plus(itemView.context.getString(R.string.currency_symbol))
             productCountView.text = product.count.toString()
-            if(product.tag_ids.isNotEmpty()) {  //TODO(Переделать отоброжение тэгов)
-                if(product.tag_ids[0]==1) tagView.setImageResource(R.drawable.ic_tag1)
-                if(product.tag_ids[0]==2) tagView.setImageResource(R.drawable.ic_tag2)
-                if(product.tag_ids[0]==3) tagView.setImageResource(R.drawable.ic_tag3)
-                if(product.tag_ids[0]==4) tagView.setImageResource(R.drawable.ic_tag4)
-                if(product.tag_ids[0]==5) tagView.setImageResource(R.drawable.ic_tag5)
+            if (product.tag_ids.isNotEmpty()) {  //TODO(Переделать отоброжение тэгов)
+                if (product.tag_ids[0] == 1) tagView.setImageResource(R.drawable.ic_tag1)
+                if (product.tag_ids[0] == 2) tagView.setImageResource(R.drawable.ic_tag2)
+                if (product.tag_ids[0] == 3) tagView.setImageResource(R.drawable.ic_tag3)
+                if (product.tag_ids[0] == 4) tagView.setImageResource(R.drawable.ic_tag4)
+                if (product.tag_ids[0] == 5) tagView.setImageResource(R.drawable.ic_tag5)
 
             }
             if (product.price_old != null) {
                 oldPriceView.apply {
                     paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    text = (product.price_old!! / 10).toString().plus(itemView.context.getString(R.string.currency_symbol))
+                    text = (product.price_old!! / 10).toString()
+                        .plus(itemView.context.getString(R.string.currency_symbol))
                 }
             }
             if (product.count <= 0) {
@@ -181,6 +191,10 @@ class ProductsRVAdapter(
     }
 
     override fun getItemCount(): Int {
-        return model.mapOfProducts.value!![categoryId]!!.size
+        if (categoryId == -1) {
+            return concretelyProductList.size
+        } else {
+            return model.mapOfProducts.value!![categoryId]!!.size
+        }
     }
 }

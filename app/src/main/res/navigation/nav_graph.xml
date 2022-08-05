@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_MenuFragment_to_basketFragment"
             app:destination="@id/basketFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/ProductDetailsFragment"
@@ -28,4 +31,8 @@
             android:id="@+id/action_basketFragment_to_ProductDetailsFragment"
             app:destination="@id/ProductDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.foodiesmailru.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

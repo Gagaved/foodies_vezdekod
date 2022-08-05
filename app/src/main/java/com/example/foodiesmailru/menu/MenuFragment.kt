@@ -52,16 +52,16 @@ class MenuFragment : Fragment() {
         }
         model.basketOfProducts.observe(viewLifecycleOwner) { basket ->
             if (basket.size == 0) {
-                binding.basketCounterIcon.visibility = View.INVISIBLE
-                binding.basketCounter.visibility = View.INVISIBLE
+                //binding.basketCounterIcon.visibility = View.INVISIBLE
+                //binding.basketCounter.visibility = View.INVISIBLE
                 binding.bottomPanel.visibility = View.INVISIBLE
                 binding.bottomPanelShadow.visibility =View.INVISIBLE
             } else {
-                binding.basketCounterIcon.visibility = View.VISIBLE
-                binding.basketCounter.visibility = View.VISIBLE
+                //binding.basketCounterIcon.visibility = View.VISIBLE
+                //binding.basketCounter.visibility = View.VISIBLE
                 binding.bottomPanel.visibility = View.VISIBLE
                 binding.bottomPanelShadow.visibility =View.VISIBLE
-                binding.basketCounter.text = basket.size.toString()
+                //binding.basketCounter.text = basket.size.toString()
             }
         }
     }
@@ -72,9 +72,9 @@ class MenuFragment : Fragment() {
         }
         binding.mainToolbar.setOnMenuItemClickListener()
         {
-            if (it.itemId == R.id.basket_menu_button) {
+            if (it.itemId == R.id.search_menu_button) {
                 model.updateBasket()
-                findNavController().navigate(R.id.action_MenuFragment_to_basketFragment)
+                findNavController().navigate(R.id.action_MenuFragment_to_searchFragment)
             }
             true
         }
