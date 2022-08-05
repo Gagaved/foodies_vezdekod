@@ -65,13 +65,18 @@ class SearchFragment: Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
 //                //todo(сделать поиск по свойствам и тэгам)
                 searchResultList.clear()
-                val searchInput = binding.searchBar.query
-                searchInput.replace("\\s".toRegex(),"").lowercase(Locale.getDefault())
+                var searchInput = binding.searchBar.query
+                lateinit var description: String
+                lateinit var name: String
+                searchInput = searchInput.replace("\\s".toRegex(),"").lowercase(Locale.getDefault())
+
                 for (product in model.products.value!!){
-                    if (searchInput.contains(product.name.lowercase(Locale.getDefault())) or product.name.lowercase(Locale.getDefault()).contains(searchInput)){
+                    description = product.description.replace("\\s".toRegex(),"").lowercase(Locale.getDefault())
+                    name = product.name.replace("\\s".toRegex(),"").lowercase(Locale.getDefault())
+                    if (searchInput.contains(name) or name.contains(searchInput)){
                         searchResultList.add(product)
                     }
-                    else if (product.description.lowercase(Locale.getDefault()).contains(searchInput))
+                    else if (description.contains(searchInput))
                     {
                       searchResultList.add(product)
                     }
