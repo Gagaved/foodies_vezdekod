@@ -156,6 +156,7 @@ class TagsRVAdapter(
     inner class ProductTagViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tagNameView = itemView.findViewById<TextView>(R.id.tag_name)
         private val mark = itemView.findViewById<TextView>(R.id.mark)
+
         @SuppressLint("NotifyDataSetChanged")
         fun bind(tag: ProductTag) {
             tagNameView.text = tag.name

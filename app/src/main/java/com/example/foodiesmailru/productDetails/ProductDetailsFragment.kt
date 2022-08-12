@@ -81,7 +81,7 @@ class ProductDetailsFragment : Fragment() {
                 getString(R.string.product_details_button).plus(' ') + model.selectedProduct.value!!.count
         }
         binding.minusButton.setOnClickListener {
-            if (model.selectedProduct.value!!.count >0) {
+            if (model.selectedProduct.value!!.count > 0) {
                 model.selectedProduct.value!!.count -= 1
             }
         }

@@ -38,7 +38,7 @@ class MenuRvFragment(private val model: MainActivity.FolderViewModel, private va
         recyclerViewForProducts.adapter = getNewRVAdapter()
         model.selectedTagId.observe(viewLifecycleOwner) {
             productList = getProductList(categoryId, model.selectedTagId.value!!)
-            recyclerViewForProducts.swapAdapter(getNewRVAdapter(),true)
+            recyclerViewForProducts.swapAdapter(getNewRVAdapter(), true)
         }
     }
 
