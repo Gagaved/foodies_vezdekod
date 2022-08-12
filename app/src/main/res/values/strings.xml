@@ -21,4 +21,6 @@
     <string name="search_bar_query_hint">Найти блюдо</string>
     <string name="search_text_background_welcome">Введите название блюда,\n которое ищете</string>
     <string name="search_background_alert">По запросу ничего не найдено.</string>
+    <string name="bottom_sheet_button_text">Готово</string>
+    <string name="bottom_sheet_title">Подобрать блюда</string>
 </resources>

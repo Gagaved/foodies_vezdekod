@@ -19,6 +19,8 @@
         <entry key="..\:/Users/GAGAVED/AndroidStudioProjects/FoodiesMailru/app/src/main/res/layout/product_item.xml" value="0.4482758620689655" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2445" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable-v24/shadow_border.xml" value="2.4" />
+        <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.2145" />
+        <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable/bottom_sheet_item_selector.xml" value="0.1" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable/drop_shadow.xml" value="0.12" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable/drop_shadow_to_bot.xml" value="0.121" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/drawable/drop_shadow_to_top.xml" value="0.121" />
@@ -44,10 +46,13 @@
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/drop_shadow.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/fragment_basket.xml" value="0.2359375" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/fragment_menu.xml" value="0.264" />
+        <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/fragment_menu_filter.xml" value="0.25" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/fragment_menu_rv.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/fragment_products_details.xml" value="0.2" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/fragment_search.xml" value="0.176" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/item_product.xml" value="0.536" />
+        <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/item_product_basket.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/item_tag.xml" value="0.2" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/menu_fragment.xml" value="0.264" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/product_basket_item.xml" value="0.152" />
         <entry key="..\:/Users/GAGAVED/Desktop/vezdekod/app/src/main/res/layout/product_category_item.xml" value="0.25" />

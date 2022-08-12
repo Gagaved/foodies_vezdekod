@@ -3,7 +3,6 @@ package com.example.foodiesmailru
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodiesmailru.dataclasses.Product
@@ -13,10 +12,11 @@ import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
     class FolderViewModel : ViewModel() {
-        var totalPrice = MutableLiveData<Int>(0)
-        var basketOfProducts = MutableLiveData<MutableList<Product>>(mutableListOf<Product>())
+        var totalPrice = MutableLiveData(0)
+        var basketOfProducts = MutableLiveData(mutableListOf<Product>())
         var selectedProduct = MutableLiveData<Product>()
         var selectedCategoryId=MutableLiveData<Int>()
+        var selectedTagId = MutableLiveData(-1)
         var categories = MutableLiveData<MutableList<ProductCategory>>()
         var products = MutableLiveData<MutableList<Product>>()
         var mapOfProducts = MutableLiveData<MutableMap<Int,MutableList<Product>>>()
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         model.categories.value = loadCategories()
         setSelectedCategory()
         model.products.value = loadProducts()
+        model.tags.value = loadTags()
         model.mapOfProducts.value = model.categories.value!!.associateBy ({ it.id },{ mutableListOf<Product>()}).toMutableMap()
         for(item in model.products.value!!){
             model.mapOfProducts.value!![item.category_id]?.add(item)

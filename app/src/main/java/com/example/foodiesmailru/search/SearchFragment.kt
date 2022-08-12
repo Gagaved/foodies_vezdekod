@@ -45,7 +45,7 @@ class SearchFragment: Fragment() {
     }
     private fun bind(){
         recyclerView = binding.recyclerView
-        adapter = ProductsRVAdapter(model,-1,searchResultList)
+        adapter = ProductsRVAdapter(model,searchResultList)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.apply {
