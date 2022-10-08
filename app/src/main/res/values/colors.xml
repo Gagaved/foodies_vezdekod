@@ -11,4 +11,5 @@
     <color name="gray">#F5F5F5</color>
     <color name="border_gray">#B1B0B0</color>
     <color name="dark_gray">#3C3C43</color>
+    <color name="background_sheet">#A9000000</color>
 </resources>

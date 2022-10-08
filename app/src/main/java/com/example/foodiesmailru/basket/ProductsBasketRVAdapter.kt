@@ -38,13 +38,15 @@ class ProductsBasketRVAdapter(private val model: MainActivity.FolderViewModel) :
         fun bind(product: Product) {
             productNameView.text = product.name
             productCountView.text = product.count.toString()
-            currentPriceView.text = (product.price_current / 10).toString() + itemView.context.getString(R.string.currency_symbol)
+            currentPriceView.text =
+                (product.price_current / 10).toString() + itemView.context.getString(R.string.currency_symbol)
             if (product.price_old == null) {
                 oldPriceView.visibility = View.INVISIBLE
             } else {
                 oldPriceView.apply {
                     paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    text = (product.price_old!! / 10).toString() + itemView.context.getString(R.string.currency_symbol)
+                    text =
+                        (product.price_old!! / 10).toString() + itemView.context.getString(R.string.currency_symbol)
                 }
 
             }

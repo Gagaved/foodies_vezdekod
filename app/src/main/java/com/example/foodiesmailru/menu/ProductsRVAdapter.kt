@@ -14,10 +14,10 @@ import com.google.android.material.button.MaterialButton
 
 class ProductsRVAdapter(
     private val model: MainActivity.FolderViewModel,
-    private val categoryId: Int,
-    private val concretelyProductList: MutableList<Product> = mutableListOf<Product>()
+    private val productList: MutableList<Product> = mutableListOf<Product>()
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private var itemClickListener: (Product) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
@@ -25,11 +25,7 @@ class ProductsRVAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (categoryId == -1) {
-            (holder as ProductCategoryViewHolder).bind(concretelyProductList[position])
-        } else {
-            (holder as ProductCategoryViewHolder).bind(model.mapOfProducts.value!![categoryId]!![position])
-        }
+        (holder as ProductCategoryViewHolder).bind(productList[position])
     }
 
     inner class ProductCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -191,10 +187,6 @@ class ProductsRVAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (categoryId == -1) {
-            return concretelyProductList.size
-        } else {
-            return model.mapOfProducts.value!![categoryId]!!.size
-        }
+        return productList.size
     }
 }

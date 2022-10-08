@@ -12,12 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodiesmailru.MainActivity
+import com.example.foodiesmailru.R
 import com.example.foodiesmailru.databinding.FragmentSearchBinding
 import com.example.foodiesmailru.dataclasses.Product
 import com.example.foodiesmailru.menu.ProductsRVAdapter
 import java.util.*
 
-class SearchFragment: Fragment() {
+class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val model: MainActivity.FolderViewModel by activityViewModels()
@@ -29,9 +30,10 @@ class SearchFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchBinding.inflate(inflater,container,false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
@@ -40,19 +42,21 @@ class SearchFragment: Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding=null
+        _binding = null
     }
-    private fun bind(){
+
+    private fun bind() {
         recyclerView = binding.recyclerView
-        adapter = ProductsRVAdapter(model,-1,searchResultList)
+        adapter = ProductsRVAdapter(model, searchResultList)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.apply {
-            layoutManager = GridLayoutManager(context,2)
+            layoutManager = GridLayoutManager(context, 2)
         }
     }
-    private fun setClickListeners(){
-        binding.toolbar.setNavigationOnClickListener{
+
+    private fun setClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -60,25 +64,47 @@ class SearchFragment: Fragment() {
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
+
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextSubmit(query: String): Boolean {
 //                //todo(сделать поиск по свойствам и тэгам)
                 searchResultList.clear()
-                val searchInput = binding.searchBar.query
-                searchInput.replace("\\s".toRegex(),"").lowercase(Locale.getDefault())
-                for (product in model.products.value!!){
-                    if (searchInput.contains(product.name.lowercase(Locale.getDefault())) or product.name.lowercase(Locale.getDefault()).contains(searchInput)){
+                var searchInput = binding.searchBar.query
+                lateinit var description: String
+                lateinit var name: String
+                searchInput =
+                    searchInput.replace("\\s".toRegex(), "").lowercase(Locale.getDefault())
+
+                for (product in model.products.value!!) {
+                    description = product.description.replace("\\s".toRegex(), "")
+                        .lowercase(Locale.getDefault())
+                    name = product.name.replace("\\s".toRegex(), "").lowercase(Locale.getDefault())
+                    if (searchInput.contains(name) or name.contains(searchInput)) {
+                        searchResultList.add(product)
+                    } else if (description.contains(searchInput)) {
                         searchResultList.add(product)
                     }
-                    else if (product.description.lowercase(Locale.getDefault()).contains(searchInput))
-                    {
-                      searchResultList.add(product)
-                    }
+                }
+                if (searchResultList.size != 0) {
+                    binding.textBackground.visibility = View.INVISIBLE
+                } else {
+                    binding.textBackground.text = getString(R.string.search_background_alert)
                 }
                 recyclerView.adapter!!.notifyDataSetChanged()
                 binding.searchBar.clearFocus()
                 return true
             }
         })
+        adapter.setItemClickListener {
+            model.selectedProduct.value = it
+            findNavController().navigate(R.id.action_searchFragment_to_ProductDetailsFragment)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (searchResultList.size != 0) {
+            binding.textBackground.visibility = View.INVISIBLE
+        }
     }
 }

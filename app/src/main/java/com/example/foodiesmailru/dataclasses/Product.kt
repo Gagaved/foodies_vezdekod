@@ -1,5 +1,6 @@
 package com.example.foodiesmailru.dataclasses
-data class  Product(
+
+data class Product(
     var id: Int,
     var category_id: Int,
     var name: String,
